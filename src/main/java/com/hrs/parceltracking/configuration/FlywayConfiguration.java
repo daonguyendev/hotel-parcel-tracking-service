@@ -22,7 +22,7 @@ public class FlywayConfiguration {
     public Flyway flyway() {
         String isFlywayEnabled = dotenv.get(FlywayConstant.FLYWAY_ON);
         String flywayLocation = dotenv.get(FlywayConstant.FLYWAY_LOC);
-        String isFlywayMigrationOn = dotenv.get(FlywayConstant.FLYWAY_ON);
+        String isFlywayMigrationOn = dotenv.get(FlywayConstant.FLYWAY_BS_ON_MIG);
 
         Flyway flyway = Flyway.configure()
                 .dataSource(this.dataSource)

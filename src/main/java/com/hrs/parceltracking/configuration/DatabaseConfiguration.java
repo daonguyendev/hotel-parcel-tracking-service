@@ -1,8 +1,9 @@
 package com.hrs.parceltracking.configuration;
 
-import com.hrs.parceltracking.constant.DataSourceConstant;
+import com.hrs.parceltracking.constant.DatabaseConstant;
 import com.hrs.parceltracking.constant.EnvConstant;
 import com.hrs.parceltracking.constant.HibernateConstant;
+import com.hrs.parceltracking.constant.MessageConstant;
 import com.hrs.parceltracking.constant.PackageConstant;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -44,13 +45,13 @@ public class DatabaseConfiguration {
         String dbPort = dotenv.get(EnvConstant.DB_PORT);
         String dbName = Objects.requireNonNull(
                 dotenv.get(EnvConstant.DB_NAME),
-                DataSourceConstant.DB_NAME_IS_REQUIRED);
+                MessageConstant.DB_NAME_IS_REQUIRED);
 
         return String.format(
-                DataSourceConstant.DATA_SOURCE_PREFIX,
+                DatabaseConstant.DATA_SOURCE_PREFIX,
                 dbType, dbHost, dbPort, dbName,
-                DataSourceConstant.CREATE_DB_IF_NOT_EXIST,
-                DataSourceConstant.IS_CREATE_DB);
+                DatabaseConstant.CREATE_DB_IF_NOT_EXIST,
+                DatabaseConstant.IS_DB_CREATE);
     }
 
     private Properties jpaProperties() {

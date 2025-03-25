@@ -1,0 +1,15 @@
+CREATE TABLE guests (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    room_number VARCHAR(50) NOT NULL,
+    is_checked_out BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TABLE parcels (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    tracking_number VARCHAR(255) NOT NULL,
+    recipient_name VARCHAR(255) NOT NULL,
+    guest_id BIGINT NULL,
+    is_picked_up BOOLEAN NOT NULL DEFAULT FALSE,
+    FOREIGN KEY (guest_id) REFERENCES guests(id) ON DELETE SET NULL
+);

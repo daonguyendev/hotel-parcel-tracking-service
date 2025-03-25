@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: hotel-parcel-tracking-service
+  jpa:
+    open-in-view: false
+  profiles:
+    active: local

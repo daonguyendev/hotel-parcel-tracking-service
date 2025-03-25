@@ -1,6 +1,6 @@
 package com.hrs.parceltracking.configuration;
 
-import com.hrs.parceltracking.constant.AppConstant;
+import com.hrs.parceltracking.constant.ServerConstant;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
@@ -20,7 +20,7 @@ public class ServerConfiguration {
 
     @Bean
     public ServletWebServerFactory servletContainer() {
-        String serverPort = dotenv.get(AppConstant.SERVER_PORT);
+        String serverPort = dotenv.get(ServerConstant.SERVER_PORT);
         TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
         tomcat.setPort(Integer.parseInt(Objects.requireNonNull(serverPort)));
         return tomcat;

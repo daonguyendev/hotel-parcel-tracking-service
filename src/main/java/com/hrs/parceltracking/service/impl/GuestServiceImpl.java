@@ -1,4 +1,37 @@
 package com.hrs.parceltracking.service.impl;
 
-public class GuestServiceImpl {
+import com.hrs.parceltracking.constant.MessageConstant;
+import com.hrs.parceltracking.entity.Guest;
+import com.hrs.parceltracking.repository.GuestRepository;
+import com.hrs.parceltracking.service.GuestService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class GuestServiceImpl implements GuestService {
+    private final GuestRepository guestRepository;
+
+    public GuestServiceImpl(GuestRepository guestRepository) {
+        this.guestRepository = guestRepository;
+    }
+
+    @Override
+    public Guest checkIn(Guest guest) {
+        guest.setCheckedOut(false);
+        return guestRepository.save(guest);
+    }
+
+    @Override
+    public void checkOut(Long guestId) {
+        Guest guest = guestRepository.findById(guestId)
+                .orElseThrow(()-> new RuntimeException(MessageConstant.GUEST_NOT_FOUND));
+        guest.setCheckedOut(true);
+        guestRepository.save(guest);
+    }
+
+    @Override
+    public List<Guest> getCheckedInGuests() {
+        return guestRepository.findByIsCheckedOutFalse();
+    }
 }

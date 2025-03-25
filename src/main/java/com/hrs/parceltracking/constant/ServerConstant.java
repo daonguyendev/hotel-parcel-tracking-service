@@ -1,5 +1,5 @@
 package com.hrs.parceltracking.constant;
 
-public class AppConstant {
+public class ServerConstant {
     public static final String SERVER_PORT = "SVR_PORT";
 }

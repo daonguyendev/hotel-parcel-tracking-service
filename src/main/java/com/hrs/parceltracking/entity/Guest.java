@@ -27,10 +27,10 @@ public class Guest {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(name = EntityConstant.ROOM_NUMBER, nullable = false)
     private String roomNumber;
 
-    @Column(nullable = false)
+    @Column(name = EntityConstant.IS_CHECKED_OUT, nullable = false)
     private boolean isCheckedOut = false;
 }
 

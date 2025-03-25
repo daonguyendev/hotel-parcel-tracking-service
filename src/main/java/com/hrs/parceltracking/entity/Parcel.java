@@ -26,17 +26,17 @@ public class Parcel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = EntityConstant.TRACKING_NUMBER, nullable = false)
     private String trackingNumber;
 
-    @Column(nullable = false)
+    @Column(name = EntityConstant.RECIPIENT_NAME, nullable = false)
     private String recipientName;
 
     @ManyToOne
     @JoinColumn(name = EntityConstant.GUEST_ID)
     private Guest guest;
 
-    @Column(nullable = false)
+    @Column(name = EntityConstant.IS_PICKED_UP, nullable = false)
     private boolean isPickedUp = false;
 }
 

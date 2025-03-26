@@ -5,3 +5,6 @@ spring:
     open-in-view: false
   profiles:
     active: local
+  mvc:
+    path-match:
+      matching-strategy: ant_path_matcher

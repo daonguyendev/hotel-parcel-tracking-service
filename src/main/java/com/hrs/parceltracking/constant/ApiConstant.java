@@ -9,4 +9,5 @@ public class ApiConstant {
     public static final String RECEIVE_PARCEL_API_ENDPOINT =  "/receive";
     public static final String AVAILABLE_PARCELS_API_ENDPOINT =  "/available/{guestId}";
     public static final String MARK_PARCEL_PICKED_UP_API_ENDPOINT =  "/pickup/{parcelId}";
+
 }

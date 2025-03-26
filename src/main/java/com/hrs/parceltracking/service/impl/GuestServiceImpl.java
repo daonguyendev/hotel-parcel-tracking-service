@@ -4,17 +4,16 @@ import com.hrs.parceltracking.constant.MessageConstant;
 import com.hrs.parceltracking.entity.Guest;
 import com.hrs.parceltracking.repository.GuestRepository;
 import com.hrs.parceltracking.service.GuestService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class GuestServiceImpl implements GuestService {
-    private final GuestRepository guestRepository;
 
-    public GuestServiceImpl(GuestRepository guestRepository) {
-        this.guestRepository = guestRepository;
-    }
+    private final GuestRepository guestRepository;
 
     @Override
     public Guest checkIn(Guest guest) {

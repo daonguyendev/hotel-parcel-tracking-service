@@ -79,4 +79,4 @@ Run unit tests and generate coverage reports:
 - **Environment Configurations:** Managed using DotEnv to separate config from code.
 
 ### License
-This project is licensed by Dao Nguyen - see the LICENSE file for details.
+This project is licensed by [Dao Nguyen](https://www.facebook.com/daonguyendev/) - see the LICENSE file for details.

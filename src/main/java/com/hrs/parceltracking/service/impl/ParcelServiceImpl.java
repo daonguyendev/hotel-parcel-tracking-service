@@ -11,10 +11,12 @@ import com.hrs.parceltracking.exception.ParcelNotFoundException;
 import com.hrs.parceltracking.repository.GuestRepository;
 import com.hrs.parceltracking.repository.ParcelRepository;
 import com.hrs.parceltracking.service.ParcelService;
+import com.hrs.parceltracking.utility.PaginationUtility;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -46,8 +48,9 @@ public class ParcelServiceImpl implements ParcelService {
     }
 
     @Override
-    public List<Parcel> getParcelsForGuest(Long guestId) {
-        return parcelRepository.findByGuestIdAndIsPickedUpFalse(guestId);
+    public Page<Parcel> getParcelsForGuest(Long guestId, int page, int size, String sortBy) {
+        Pageable pageable = PaginationUtility.createPageable(page, size, sortBy);
+        return parcelRepository.findByGuestIdAndIsPickedUpFalse(guestId, pageable);
     }
 
     @Override

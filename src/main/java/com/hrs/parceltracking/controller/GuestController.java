@@ -45,7 +45,7 @@ public class GuestController {
     public ResponseEntity<Page<Guest>> getCheckedInGuests(
             @RequestParam(defaultValue = PaginationConstant.DEFAULT_PAGE) int page,
             @RequestParam(defaultValue = PaginationConstant.DEFAULT_SIZE) int size,
-            @RequestParam(defaultValue = PaginationConstant.DEFAULT_SORT_BY) String sortBy) {
+            @RequestParam(defaultValue = PaginationConstant.SORT_BY_NAME_ASC) String sortBy) {
         return ResponseEntity.ok(guestService.getCheckedInGuests(page, size, sortBy));
     }
 }

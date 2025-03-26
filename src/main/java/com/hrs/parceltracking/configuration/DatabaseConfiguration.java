@@ -6,6 +6,7 @@ import com.hrs.parceltracking.constant.HibernateConstant;
 import com.hrs.parceltracking.constant.MessageConstant;
 import com.hrs.parceltracking.constant.PackageConstant;
 import io.github.cdimascio.dotenv.Dotenv;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,12 +21,9 @@ import java.util.Properties;
 
 @Configuration
 @DependsOn(EnvConstant.DOT_ENV)
+@RequiredArgsConstructor
 public class DatabaseConfiguration {
     private final Dotenv dotenv;
-
-    public DatabaseConfiguration(Dotenv dotenv) {
-        this.dotenv = dotenv;
-    }
 
     @Bean
     public DataSource dataSource() {

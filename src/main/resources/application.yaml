@@ -3,8 +3,8 @@ spring:
     name: hotel-parcel-tracking-service
   jpa:
     open-in-view: false
-  profiles:
-    active: local
   mvc:
     path-match:
       matching-strategy: ant_path_matcher
+  profiles:
+    active: local

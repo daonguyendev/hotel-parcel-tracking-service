@@ -8,4 +8,5 @@ import java.util.List;
 public interface ParcelService {
     String receiveParcel(ParcelRequest parcelRequest);
     List<Parcel> getParcelsForGuest(Long guestId);
+    String markParcelAsPickedUp(Long parcelId);
 }

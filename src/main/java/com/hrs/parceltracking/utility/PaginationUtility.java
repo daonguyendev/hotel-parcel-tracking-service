@@ -6,6 +6,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 public class PaginationUtility {
+    private PaginationUtility() {
+        throw new UnsupportedOperationException(PaginationConstant.UTILITY_CLASS_NOTE);
+    }
 
     public static Pageable createPageable(int page, int size, String sortBy) {
         String[] sortParams = sortBy.split(PaginationConstant.SORT_BY_SEPARATION);

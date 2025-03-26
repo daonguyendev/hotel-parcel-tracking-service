@@ -5,7 +5,7 @@ import com.hrs.parceltracking.entity.Parcel;
 import org.springframework.data.domain.Page;
 
 public interface ParcelService {
-    String receiveParcel(ParcelRequest parcelRequest);
+    void receiveParcel(ParcelRequest parcelRequest);
     Page<Parcel> getParcelsForGuest(Long guestId, int page, int size, String sortBy);
-    String markParcelAsPickedUp(Long parcelId);
+    void markParcelAsPickedUp(Long parcelId);
 }

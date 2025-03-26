@@ -4,10 +4,12 @@ import com.hrs.parceltracking.constant.MessageConstant;
 import com.hrs.parceltracking.dto.request.ParcelRequest;
 import com.hrs.parceltracking.entity.Guest;
 import com.hrs.parceltracking.entity.Parcel;
-import com.hrs.parceltracking.exception.GuestNotFoundOrCheckedOutException;
-import com.hrs.parceltracking.exception.ParcelAlreadyPickedUpException;
+import com.hrs.parceltracking.exception.GuestCheckedInException;
+import com.hrs.parceltracking.exception.GuestNotFoundException;
+import com.hrs.parceltracking.exception.InvalidGuestInfoException;
 import com.hrs.parceltracking.exception.ParcelIsPickedUpException;
 import com.hrs.parceltracking.exception.ParcelNotFoundException;
+import com.hrs.parceltracking.exception.ParcelPickedUpException;
 import com.hrs.parceltracking.repository.GuestRepository;
 import com.hrs.parceltracking.repository.ParcelRepository;
 import com.hrs.parceltracking.service.ParcelService;
@@ -17,8 +19,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class ParcelServiceImpl implements ParcelService {
@@ -27,12 +27,11 @@ public class ParcelServiceImpl implements ParcelService {
     private final GuestRepository guestRepository;
 
     @Override
-    public String receiveParcel(ParcelRequest parcelRequest) {
-        Optional<Guest> guest = guestRepository.findByNameAndRoomNumberAndIsCheckedOutFalse(
-                                    parcelRequest.getRecipientName(), parcelRequest.getRoomNumber());
-        if (guest.isEmpty()) {
-            throw new GuestNotFoundOrCheckedOutException(MessageConstant.GUEST_NOT_FOUND_OR_CHECKED_OUT);
-        }
+    public void receiveParcel(ParcelRequest parcelRequest) {
+        guestRepository.findByNameAndRoomNumberAndIsCheckedOutFalse(
+                                        parcelRequest.getRecipientName(), parcelRequest.getRoomNumber())
+                                 .orElseThrow(() -> new InvalidGuestInfoException(
+                                        MessageConstant.INVALID_GUEST_INFO));
 
         Parcel parcel = parcelRepository.findByTrackingNumber(parcelRequest.getTrackingNumber())
                 .orElseThrow(() -> new ParcelNotFoundException(MessageConstant.PARCEL_NOT_FOUND));
@@ -43,28 +42,31 @@ public class ParcelServiceImpl implements ParcelService {
 
         parcel.setPickedUp(true);
         parcelRepository.save(parcel);
-
-        return MessageConstant.PARCEL_ACCEPTED;
     }
 
     @Override
     public Page<Parcel> getParcelsForGuest(Long guestId, int page, int size, String sortBy) {
+        Guest guest = guestRepository.findById(guestId)
+                .orElseThrow(() -> new GuestNotFoundException(MessageConstant.GUEST_NOT_FOUND));
+
+        if (!guest.isCheckedOut()) {
+            throw new GuestCheckedInException(MessageConstant.GUEST_ALREADY_CHECKED_IN);
+        }
+
         Pageable pageable = PaginationUtility.createPageable(page, size, sortBy);
         return parcelRepository.findByGuestIdAndIsPickedUpFalse(guestId, pageable);
     }
 
     @Override
-    public String markParcelAsPickedUp(Long parcelId) {
+    public void markParcelAsPickedUp(Long parcelId) {
         Parcel parcel = parcelRepository.findById(parcelId)
                 .orElseThrow(() -> new ParcelNotFoundException(MessageConstant.PARCEL_NOT_FOUND));
 
         if (parcel.isPickedUp()) {
-            throw new ParcelAlreadyPickedUpException(MessageConstant.PARCEL_ALREADY_PICKED_UP);
+            throw new ParcelPickedUpException(MessageConstant.PARCEL_ALREADY_PICKED_UP);
         }
 
         parcel.setPickedUp(true);
         parcelRepository.save(parcel);
-
-        return MessageConstant.PARCEL_MARKED_AS_PICKED_UP;
     }
 }

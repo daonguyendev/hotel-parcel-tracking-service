@@ -18,4 +18,14 @@ public class StandardResponse<T> {
     private String message;
     private T data;
     private String error;
+
+    @Override
+    public String toString() {
+        return "StandardResponse{" +
+                "statusCode=" + statusCode +
+                ", message='" + message + '\'' +
+                ", data=" + data +
+                ", error='" + error + '\'' +
+                '}';
+    }
 }

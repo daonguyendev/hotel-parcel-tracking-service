@@ -35,9 +35,7 @@ public class FlywayConfigurationTest {
     @Test
     void flyway_ShouldNotCallMigrate_WhenFlywayEnabledIsFalse() {
         when(dotenv.get(FlywayConstant.FLYWAY_ON)).thenReturn("false");
-
         Flyway flyway = spy(flywayConfiguration.flyway());
-
         verify(flyway, never()).migrate();
     }
 
@@ -47,7 +45,6 @@ public class FlywayConfigurationTest {
         when(dotenv.get(FlywayConstant.FLYWAY_BS_ON_MIG)).thenReturn(null);
 
         Flyway flyway = flywayConfiguration.flyway();
-
         assertNotNull(flyway);
     }
 }

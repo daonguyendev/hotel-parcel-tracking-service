@@ -4,12 +4,14 @@ import com.hrs.parceltracking.constant.ApiConstant;
 import com.hrs.parceltracking.constant.MessageConstant;
 import com.hrs.parceltracking.constant.PaginationConstant;
 import com.hrs.parceltracking.constant.SwaggerConstant;
+import com.hrs.parceltracking.dto.response.StandardResponse;
 import com.hrs.parceltracking.entity.Guest;
 import com.hrs.parceltracking.service.GuestService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,23 +31,41 @@ public class GuestController {
 
     @PostMapping(ApiConstant.CHECK_IN_API_ENDPOINT)
     @ApiOperation(value = SwaggerConstant.CHECK_IN_A_GUEST_VALUE, notes = SwaggerConstant.CHECK_IN_A_GUEST_NOTES)
-    public ResponseEntity<Guest> checkIn(@RequestBody Guest guest) {
-        return ResponseEntity.ok(guestService.checkIn(guest));
+    public ResponseEntity<StandardResponse<Guest>> checkIn(@RequestBody Guest guest) {
+
+        Guest guestCheckedIn = guestService.checkIn(guest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(
+                StandardResponse.<Guest>builder()
+                        .statusCode(HttpStatus.CREATED.value())
+                        .message(MessageConstant.GUEST_CHECKIN_SUCCESS)
+                        .data(guestCheckedIn)
+                        .build()
+        );
     }
 
     @PostMapping(ApiConstant.CHECKED_OUT_BY_ID_API_ENDPOINT)
     @ApiOperation(value = SwaggerConstant.CHECK_OUT_A_GUEST_VALUE, notes = SwaggerConstant.CHECK_OUT_A_GUEST_NOTES)
-    public ResponseEntity<String> checkOut(@PathVariable Long id) {
+    public ResponseEntity<StandardResponse<Void>> checkOut(@PathVariable Long id) {
+
         guestService.checkOut(id);
-        return ResponseEntity.ok(MessageConstant.GUEST_CHECKOUT_SUCCESS);
+        return ResponseEntity.ok(StandardResponse.<Void>builder()
+                .statusCode(HttpStatus.OK.value())
+                .message(MessageConstant.GUEST_CHECKOUT_SUCCESS)
+                .build());
     }
 
     @GetMapping(ApiConstant.CHECKED_IN_GUESTS_API_ENDPOINT)
     @ApiOperation(value = SwaggerConstant.CHECKED_IN_GUESTS_VALUE, notes = SwaggerConstant.CHECKED_IN_GUESTS_NOTES)
-    public ResponseEntity<Page<Guest>> getCheckedInGuests(
+    public ResponseEntity<StandardResponse<Page<Guest>>> getCheckedInGuests(
             @RequestParam(defaultValue = PaginationConstant.DEFAULT_PAGE) int page,
             @RequestParam(defaultValue = PaginationConstant.DEFAULT_SIZE) int size,
-            @RequestParam(defaultValue = PaginationConstant.DEFAULT_SORT_BY) String sortBy) {
-        return ResponseEntity.ok(guestService.getCheckedInGuests(page, size, sortBy));
+            @RequestParam(defaultValue = PaginationConstant.SORT_BY_NAME_ASC) String sortBy) {
+
+        Page<Guest> guests = guestService.getCheckedInGuests(page, size, sortBy);
+        return ResponseEntity.ok(StandardResponse.<Page<Guest>>builder()
+                .statusCode(HttpStatus.OK.value())
+                .message(MessageConstant.CHECKED_IN_GUESTS_RETRIEVED_SUCCESS)
+                .data(guests)
+                .build());
     }
 }

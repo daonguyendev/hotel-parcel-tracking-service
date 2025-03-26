@@ -22,4 +22,8 @@ public class ParcelRequest {
     @NotBlank(message = MessageConstant.RECIPIENT_NAME_IS_REQUIRED)
     @Size(max = 255, message = MessageConstant.RECIPIENT_NAME_MAX_255_CHARS)
     private String recipientName;
+
+    @NotBlank(message = MessageConstant.ROOM_NUMBER_IS_REQUIRED)
+    @Size(max = 45, message = MessageConstant.ROOM_NUMBER_MAX_45_CHARS)
+    private String roomNumber;
 }

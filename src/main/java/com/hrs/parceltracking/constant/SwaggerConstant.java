@@ -1,6 +1,7 @@
 package com.hrs.parceltracking.constant;
 
 public class SwaggerConstant {
+    /* API Info */
     public static final String API_INFO_TITLE = "Parcel Tracking API";
     public static final String API_INFO_DESCRIPTION = "API for tracking parcels in a hotel";
     public static final String API_INFO_VERSION = "1.0";
@@ -11,6 +12,7 @@ public class SwaggerConstant {
     public static final String API_INFO_LICENSE_TITLE = "License of API";
     public static final String API_INFO_LICENSE_URL = "API license URL";
 
+    /* Parcel API  */
     public static final String PARCEL_API_TAGS = "Parcel Management";
     public static final String PARCEL_API_DESCRIPTION = "APIs for managing parcels in the hotel";
     public static final String PARCEL_AS_PICKED_UP_VALUE = "Mark parcel as picked up";
@@ -22,6 +24,7 @@ public class SwaggerConstant {
     public static final String AVAILABLE_PARCELS_NOTES = "This API retrieves all available parcels " +
                                                             "for a checked-in guest.";
 
+    /* Guest API */
     public static final String GUEST_API_TAGS = "Guest Management";
     public static final String GUEST_API_DESCRIPTION = "APIs for managing guest check-in and check-out";
     public static final String CHECK_IN_A_GUEST_VALUE = "Check-in a guest";

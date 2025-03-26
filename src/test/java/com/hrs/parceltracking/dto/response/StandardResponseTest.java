@@ -98,7 +98,7 @@ public class StandardResponseTest {
 
         // Assert
         assertNotNull(response);
-        assertEquals(0, response.getStatusCode());  // Giá trị mặc định của int là 0
+        assertEquals(0, response.getStatusCode());
         assertNull(response.getMessage());
         assertNull(response.getData());
         assertNull(response.getError());
@@ -111,22 +111,18 @@ public class StandardResponseTest {
                 200, "OK", "Test Data", "Some Error");
 
         // Act
-        String result = response.toString(); // invoked toString()
+        String result = response.toString();
 
         // Assert
         assertNotNull(result);
-        assertEquals("StandardResponse{statusCode=200, message='OK', data=Test Data, error='Some Error'}", result);
+        assertEquals("StandardResponse{statusCode=200, message='OK', " +
+                                "data=Test Data, error='Some Error'}", result);
     }
 
     @Test
     void testErrorSetter_ShouldSetAndRetrieveError() {
-        // Arrange
         StandardResponse<String> response = new StandardResponse<>();
-
-        // Act
-        response.setError("Internal Server Error"); // invoked error()
-
-        // Assert
+        response.setError("Internal Server Error");
         assertEquals("Internal Server Error", response.getError());
     }
 }

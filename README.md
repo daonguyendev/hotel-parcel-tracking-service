@@ -1,7 +1,7 @@
-## HRS Hotel Parcel Tracking Service
+## Hotel Parcel Tracking Service
 
 ### Overview
-HRS Hotel Parcel Tracking Service is a Spring Boot-based backend application that enables tracking and managing parcels within a hotel system. It provides RESTful APIs for parcel management, guest interactions, and tracking functionalities.
+Hotel Parcel Tracking Service is a Spring Boot-based backend application that enables tracking and managing parcels within a hotel system. It provides RESTful APIs for parcel management, guest interactions, and tracking functionalities.
 
 ### Features
 This project includes the following features:
@@ -41,8 +41,8 @@ Ensure you have the following installed:
 - Gradle 8+
 
 ### 2. Clone the Repository
-`git clone https://github.com/your-repo/hrs-hotel-parcel-tracking.git`  
-`cd hrs-hotel-parcel-tracking`
+`git clone https://github.com/daonguyendev/hotel-parcel-tracking-service.git`  
+`cd hotel-parcel-tracking`
 
 ### 3. Setup Environment Variables
 Create your .env.local file like .env.example file in the project root 
